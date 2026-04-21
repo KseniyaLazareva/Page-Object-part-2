@@ -10,7 +10,7 @@ import java.time.Duration;
 public class TestsPOM {
 
     HomePagePOM objHomePagePOM;
-
+    SearchPOM objSearchPOM;
     WebDriver driver;
 
     @BeforeEach
@@ -33,4 +33,16 @@ public class TestsPOM {
         objHomePagePOM.hoverOverInfo();
         objHomePagePOM.headerOfPopupCheck();
     }
+
+    @Test
+    public void testTicketSearch() {
+        objHomePagePOM = new HomePagePOM(driver);
+        objSearchPOM = new SearchPOM(driver);
+        objHomePagePOM.pageLoadingCheck();
+        objSearchPOM.ticketSearchBlockCheck();
+        objSearchPOM.entryCity("Москва", "Санкт-Петербург");
+        objSearchPOM.clickOnSearchButton();
+        objSearchPOM.checkBorderColorFlightThere();
+    }
+
 }
