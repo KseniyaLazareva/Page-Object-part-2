@@ -11,6 +11,8 @@ public class TestsPOM {
 
     HomePagePOM objHomePagePOM;
     SearchPOM objSearchPOM;
+    BookingPOM objBookingPOM;
+    ViewOrderPagePOM objViewOrderPagePOM;
     WebDriver driver;
 
     @BeforeEach
@@ -32,6 +34,7 @@ public class TestsPOM {
         objHomePagePOM.pageLoadingCheck();
         objHomePagePOM.hoverOverInfo();
         objHomePagePOM.headerOfPopupCheck();
+
     }
 
     @Test
@@ -43,6 +46,21 @@ public class TestsPOM {
         objSearchPOM.entryCity("Москва", "Санкт-Петербург");
         objSearchPOM.clickOnSearchButton();
         objSearchPOM.checkBorderColorFlightThere();
+    }
+
+    @Test
+    public void testBooking() {
+        objHomePagePOM = new HomePagePOM(driver);
+        objBookingPOM = new BookingPOM(driver);
+        objViewOrderPagePOM = new ViewOrderPagePOM(driver);
+        objHomePagePOM.pageLoadingCheck();
+        objBookingPOM.openBooking();
+        objBookingPOM.checkOpenBooking();
+        objBookingPOM.searchBooking("XXXXXX", "Qwerty");
+        objBookingPOM.openAndCheckNewWindow();
+        objViewOrderPagePOM.clickOnCheckbox();
+        objViewOrderPagePOM.clickOnButtonSearch();
+        objViewOrderPagePOM.checkErrorMessage();
     }
 
 }
