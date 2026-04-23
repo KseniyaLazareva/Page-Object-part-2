@@ -1,46 +1,28 @@
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.By;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
+
 
 public class SearchPOM {
-    WebDriver driver;
 
-    @FindBy(id = ":Rlama5durm:")
-    WebElement fieldFromWhere;
-
-    @FindBy(id = ":Rlqma5durm:")
-    WebElement fieldWhere;
-
-    @FindBy(id = ":Rlcma5durm:")
-    WebElement fieldFlightThere;
-
-    @FindBy(id = ":Rtcma5durm:")
-    WebElement fieldReturnFlight;
-
-    @FindBy(css = "button [class=\"dp-1a7d7wo-root\"]")
-    WebElement buttonSearch;
-
-    @FindBy(className = "dp-sgi8y9-root-suggestionName")
-    WebElement hintFromWhere;
-
-    @FindBy(className = "dp-sgi8y9-root-suggestionName")
-    WebElement hintWhere;
-
-    @FindBy(css = "div.dp-9bdwya-root > div > div.dp-1297k38-root > div > div")
-    WebElement errorfieldFlightThere;
-
-    public SearchPOM(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
+    private SelenideElement fieldFromWhere = $(By.id(":Rlama5durm:"));
+    private SelenideElement fieldWhere = $(By.id(":Rlqma5durm:"));
+    private SelenideElement fieldFlightThere = $(By.id(":Rlcma5durm:"));
+    private SelenideElement fieldReturnFlight = $(By.id(":Rtcma5durm:"));
+    private SelenideElement buttonSearch = $("button [class=\"dp-1a7d7wo-root\"]");
+    private SelenideElement hintFromWhere = $x("//*[text()='Москва' and @class='dp-sgi8y9-root-suggestionName']");
+    private SelenideElement hintWhere = $x("//*[text()='Санкт-Петербург' and @class='dp-sgi8y9-root-suggestionName']");
+    private SelenideElement errorfieldFlightThere = $("div.dp-9bdwya-root > div > div.dp-1297k38-root > div > div");
 
     public void ticketSearchBlockCheck() {
-        fieldFromWhere.isDisplayed();
-        fieldWhere.isDisplayed();
-        fieldFlightThere.isDisplayed();
-        fieldReturnFlight.isDisplayed();
+        fieldFromWhere.shouldBe(visible);
+        fieldWhere.shouldBe(visible);
+        fieldFlightThere.shouldBe(visible);
+        fieldReturnFlight.shouldBe(visible);
     }
 
     public void entryCity(String fromWhere, String where) {

@@ -1,41 +1,25 @@
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.switchTo;
 
 public class BookingPOM {
 
-    WebDriver driver;
-
-    @FindBy(css = "div:nth-child(4) >[href=\"/services/booking-management\"]")
-    WebElement sectionBooking;
-
-    @FindBy(id = ":r3:")
-    WebElement inputOrderNumber;
-
-    @FindBy(id = ":r1:")
-    WebElement inputSurname;
-
-    @FindBy(css = "button.dp-u0lwsb-root-root-submitBtn")
-    WebElement buttonSearchBooking;
-
-    public BookingPOM(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
+    private SelenideElement sectionBooking = $("div:nth-child(4) >[href=\"/services/booking-management\"]");
+    private SelenideElement inputOrderNumber = $(By.id(":r3:"));
+    private SelenideElement inputSurname = $(By.id(":r1:"));
+    private SelenideElement buttonSearchBooking = $("button.dp-u0lwsb-root-root-submitBtn");
 
     public void openBooking() {
-        Actions actions = new Actions(driver);
-        actions.keyDown(Keys.CONTROL).sendKeys(Keys.END).keyUp(Keys.CONTROL).perform();
-        sectionBooking.click();
+        sectionBooking.scrollTo().click();
     }
 
     public void checkOpenBooking() {
-        inputOrderNumber.isDisplayed();
-        inputSurname.isDisplayed();
-        buttonSearchBooking.isDisplayed();
+        inputOrderNumber.shouldBe(visible);
+        inputSurname.shouldBe(visible);
+        buttonSearchBooking.shouldBe(visible);
     }
 
     public void searchBooking(String orderNumber, String surname) {
@@ -45,12 +29,8 @@ public class BookingPOM {
     }
 
     public void openAndCheckNewWindow() {
-        for (String handle : driver.getWindowHandles()) {
-    driver.switchTo().window(handle);
-    if (driver.getTitle().contains("Просмотр заказа")) {
-        break;
-    }
-}
+        switchTo().window ("Просмотр заказа");
+
 
     }
 

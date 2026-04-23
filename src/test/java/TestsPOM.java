@@ -1,11 +1,10 @@
-import org.junit.jupiter.api.AfterEach;
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
+import static com.codeborne.selenide.Selenide.open;
 
-import java.time.Duration;
 
 public class TestsPOM {
 
@@ -17,20 +16,14 @@ public class TestsPOM {
 
     @BeforeEach
     public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://www.flypobeda.ru");
-    }
 
-    @AfterEach
-    public void tearDown() {
-        driver.quit();
+        Configuration.browserSize = "1920x1080";
+        open("https://www.flypobeda.ru");
     }
 
     @Test
     public void testPopup() {
-        objHomePagePOM = new HomePagePOM(driver);
+        objHomePagePOM = new HomePagePOM();
         objHomePagePOM.pageLoadingCheck();
         objHomePagePOM.hoverOverInfo();
         objHomePagePOM.headerOfPopupCheck();
@@ -39,8 +32,8 @@ public class TestsPOM {
 
     @Test
     public void testTicketSearch() {
-        objHomePagePOM = new HomePagePOM(driver);
-        objSearchPOM = new SearchPOM(driver);
+        objHomePagePOM = new HomePagePOM();
+        objSearchPOM = new SearchPOM();
         objHomePagePOM.pageLoadingCheck();
         objSearchPOM.ticketSearchBlockCheck();
         objSearchPOM.entryCity("Москва", "Санкт-Петербург");
@@ -50,9 +43,9 @@ public class TestsPOM {
 
     @Test
     public void testBooking() {
-        objHomePagePOM = new HomePagePOM(driver);
-        objBookingPOM = new BookingPOM(driver);
-        objViewOrderPagePOM = new ViewOrderPagePOM(driver);
+        objHomePagePOM = new HomePagePOM();
+        objBookingPOM = new BookingPOM();
+        objViewOrderPagePOM = new ViewOrderPagePOM();
         objHomePagePOM.pageLoadingCheck();
         objBookingPOM.openBooking();
         objBookingPOM.checkOpenBooking();

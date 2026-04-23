@@ -1,46 +1,32 @@
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePagePOM {
-    WebDriver driver;
 
-    @FindBy(css = "img[src='/_next/static/media/logo-rus.bf0cf03b.svg'")
-    WebElement logo;
+    private SelenideElement logo = $("a.dp-1c65d1k-root-root-root > img");
+    private SelenideElement info = $("[href=\"/information\"]");
+    private SelenideElement headerFlight = $x("//*[text()='Подготовка к полёту']");
+    private SelenideElement headerUseful = $x("//*[text()='Полезная информация']");
+    private SelenideElement headerCompany = $x("//div[@class='dp-k3o5jh-root']//*[text()='О компании']");
 
-    @FindBy(css = "[href=\"/information\"]")
-    WebElement info;
-
-    @FindBy(xpath = "//*[text()='Подготовка к полёту']")
-    WebElement headerFlight;
-
-    @FindBy(xpath = "//*[text()='Полезная информация']")
-    WebElement headerUseful;
-
-    @FindBy(xpath = "//div[@class='dp-k3o5jh-root']//*[text()='О компании']")
-    WebElement headerCompany;
-
-    public HomePagePOM(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
 
     public void pageLoadingCheck() {
-        Assertions.assertEquals("Авиакомпания «Победа» - купить авиабилеты онлайн, дешёвые билеты на самолёт, прямые и трансферные рейсы с пересадками", driver.getTitle());
-        logo.isDisplayed();
+        Assertions.assertEquals("Авиакомпания «Победа» - купить авиабилеты онлайн, дешёвые билеты на самолёт, прямые и трансферные рейсы с пересадками", Selenide.title());
+        logo.shouldBe(visible);
     }
 
     public void hoverOverInfo() {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(info).perform();
+        info.hover();
     }
 
     public void headerOfPopupCheck() {
-        headerFlight.isDisplayed();
-        headerUseful.isDisplayed();
-        headerCompany.isDisplayed();
+        headerFlight.shouldBe(visible);
+        headerUseful.shouldBe(visible);
+        headerCompany.shouldBe(visible);
     }
 }
