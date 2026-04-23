@@ -22,10 +22,10 @@ public class SearchPOM {
     @FindBy(css = "button [class=\"dp-1a7d7wo-root\"]")
     WebElement buttonSearch;
 
-    @FindBy(className = "dp-sgi8y9-root-suggestionName")
+    @FindBy(xpath = "//*[text()='Москва' and @class='dp-sgi8y9-root-suggestionName']")
     WebElement hintFromWhere;
 
-    @FindBy(className = "dp-sgi8y9-root-suggestionName")
+    @FindBy(xpath = "//*[text()='Санкт-Петербург' and @class='dp-sgi8y9-root-suggestionName']")
     WebElement hintWhere;
 
     @FindBy(css = "div.dp-9bdwya-root > div > div.dp-1297k38-root > div > div")

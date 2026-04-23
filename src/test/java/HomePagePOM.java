@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 public class HomePagePOM {
     WebDriver driver;
 
-    @FindBy(css = "img[src='/_next/static/media/logo-rus.bf0cf03b.svg'")
+    @FindBy(css = "a.dp-1c65d1k-root-root-root > img")
     WebElement logo;
 
     @FindBy(css = "[href=\"/information\"]")
